@@ -75,7 +75,7 @@ android {
 
     namespace "com.zelusikclientwebview"
     defaultConfig {
-        applicationId "com.zelusikclientwebview"
+        applicationId "com.bobplace.eatery"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 9
