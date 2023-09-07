@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { WebView, WebViewMessageEvent } from "react-native-webview";
-import { Alert, BackHandler, SafeAreaView, StyleSheet } from "react-native";
+import {
+  Alert,
+  BackHandler,
+  Platform,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+} from "react-native";
 import { StackActions } from "@react-navigation/native";
 import { WEBVIEW_URL } from "@env";
 
 export default function WebviewContainer({ navigation, route }: any) {
   const url = route.params?.url ?? WEBVIEW_URL + "/community";
-  const [state, setState] = useState({ url: "", canGoBack: false });
+  const [state, setState] = useState({ url: "", canGoBack: false, title: "" });
 
   let webviewRef = useRef<any>(null);
   const handleSetRef = (_ref: any) => {
@@ -54,7 +61,7 @@ export default function WebviewContainer({ navigation, route }: any) {
     return () => {
       BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
     };
-  }, [state.url]);
+  }, [state.url, state.title]);
 
   return (
     <SafeAreaView style={globalStyle.container}>
@@ -64,9 +71,20 @@ export default function WebviewContainer({ navigation, route }: any) {
         onMessage={handleWebview2RN}
         source={{ uri: WEBVIEW_URL }}
         onNavigationStateChange={(navState) => {
-          console.log(navState);
-          setState({ url: navState.url, canGoBack: navState.canGoBack });
+          setState({
+            url: navState.url,
+            canGoBack: navState.canGoBack,
+            title: navState.title,
+          });
         }}
+        scalesPageToFit={Platform.OS === "android"}
+        bounces={false}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        alwaysBounceHorizontal={false}
+        alwaysBounceVertical={false}
+        scrollEnabled={false}
+        overScrollMode="never"
       />
     </SafeAreaView>
   );
@@ -76,5 +94,7 @@ const globalStyle = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
+    position: "relative",
+    overflow: "hidden",
   },
 });
