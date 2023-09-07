@@ -1,4 +1,4 @@
-package com.zelusikclientwebview;
+package com.bobplace.eatery;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
