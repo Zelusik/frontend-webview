@@ -96,5 +96,6 @@ const globalStyle = StyleSheet.create({
     height: "100%",
     position: "relative",
     overflow: "hidden",
+    backgroundColor: "#ffffff",
   },
 });
