@@ -73,13 +73,13 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.zelusikclientwebview"
+    namespace "com.bobplace.eatery"
     defaultConfig {
-        applicationId "com.zelusikclientwebview"
+        applicationId "com.bobplace.eatery"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode 11
+        versionName "2.0.1"
     }
     signingConfigs {
         debug {

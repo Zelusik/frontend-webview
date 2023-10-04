@@ -1,4 +1,4 @@
-package com.zelusikclientwebview;
+package com.bobplace.eatery;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
