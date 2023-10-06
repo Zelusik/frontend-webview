@@ -15,8 +15,27 @@ import { colors } from "../../constants/colors";
 import Gallery from "../../components/assets/images/gallery.jpg";
 import TabNavigation from "./components/BottomNavigation";
 import { fontStyle } from "../../constants/commonStyle";
+import { useDispatch } from "react-redux";
+import { changeImageInfo } from "../../reducer/slices/image/imageSlice";
+import { ExifData } from "../../types/image";
+import { changeModalVisible } from "../../reducer/slices/review/reviewModalSlice";
 
-const Review = ({ onClose }: any) => {
+const Review = () => {
+  const dispatch = useDispatch();
+  const handleClickNext = () => {
+    dispatch(
+      changeModalVisible({
+        type: "reviewMain",
+        value: false,
+      })
+    );
+    dispatch(
+      changeModalVisible({
+        type: "selectPlace",
+        value: true,
+      })
+    );
+  };
   const hasAndroidPermission = async () => {
     const permission =
       Number(Platform.Version) >= 33
@@ -35,10 +54,23 @@ const Review = ({ onClose }: any) => {
   const getPhotos = async () => {
     try {
       const images = await ImagePicker.openPicker({
+        mediaType: "photo",
         multiple: true,
         includeExif: true,
+        includeBase64: true,
       });
-      console.log(images[0].exif);
+      const imageInfoArray = images.map((image) => {
+        const latitude = (image.exif as ExifData)?.GPSLatitude || "";
+        const longitude = (image.exif as ExifData)?.GPSLongitude || "";
+        return {
+          image: "data:image/jpeg;base64," + image.data,
+          imageUrl: "data:image/jpeg;base64," + image.data,
+          lat: latitude,
+          lng: longitude,
+        };
+      });
+      dispatch(changeImageInfo(imageInfoArray));
+      handleClickNext();
     } catch (error: any) {
       if (error.message === "User cancelled image selection") {
       } else {
