@@ -12,6 +12,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		39C94AAA2AD03E4100846B82 /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39C94AA92AD03E4100846B82 /* SpoqaHanSansNeo-Bold.ttf */; };
+		39C94AAC2AD03E5400846B82 /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39C94AAB2AD03E5400846B82 /* SpoqaHanSansNeo-Light.ttf */; };
+		39C94AAE2AD03E6500846B82 /* SpoqaHanSansNeo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39C94AAD2AD03E6400846B82 /* SpoqaHanSansNeo-Medium.ttf */; };
+		39C94AB02AD03E6B00846B82 /* SpoqaHanSansNeo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39C94AAF2AD03E6B00846B82 /* SpoqaHanSansNeo-Regular.ttf */; };
+		39C94AB22AD03E7100846B82 /* SpoqaHanSansNeo-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 39C94AB12AD03E7100846B82 /* SpoqaHanSansNeo-Thin.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-ZelusikClientWebview-ZelusikClientWebviewTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-ZelusikClientWebview-ZelusikClientWebviewTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -37,6 +42,11 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ZelusikClientWebview/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ZelusikClientWebview/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-ZelusikClientWebview-ZelusikClientWebviewTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ZelusikClientWebview-ZelusikClientWebviewTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		39C94AA92AD03E4100846B82 /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
+		39C94AAB2AD03E5400846B82 /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
+		39C94AAD2AD03E6400846B82 /* SpoqaHanSansNeo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.ttf"; sourceTree = "<group>"; };
+		39C94AAF2AD03E6B00846B82 /* SpoqaHanSansNeo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.ttf"; sourceTree = "<group>"; };
+		39C94AB12AD03E7100846B82 /* SpoqaHanSansNeo-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-ZelusikClientWebview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZelusikClientWebview.debug.xcconfig"; path = "Target Support Files/Pods-ZelusikClientWebview/Pods-ZelusikClientWebview.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-ZelusikClientWebview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZelusikClientWebview.release.xcconfig"; path = "Target Support Files/Pods-ZelusikClientWebview/Pods-ZelusikClientWebview.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-ZelusikClientWebview-ZelusikClientWebviewTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZelusikClientWebview-ZelusikClientWebviewTests.debug.xcconfig"; path = "Target Support Files/Pods-ZelusikClientWebview-ZelusikClientWebviewTests/Pods-ZelusikClientWebview-ZelusikClientWebviewTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,6 +116,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		39C94AA82AD03E2300846B82 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				39C94AAB2AD03E5400846B82 /* SpoqaHanSansNeo-Light.ttf */,
+				39C94AAF2AD03E6B00846B82 /* SpoqaHanSansNeo-Regular.ttf */,
+				39C94AB12AD03E7100846B82 /* SpoqaHanSansNeo-Thin.ttf */,
+				39C94AAD2AD03E6400846B82 /* SpoqaHanSansNeo-Medium.ttf */,
+				39C94AA92AD03E4100846B82 /* SpoqaHanSansNeo-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +138,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				39C94AA82AD03E2300846B82 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* ZelusikClientWebview */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ZelusikClientWebviewTests */,
@@ -243,7 +266,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39C94AAC2AD03E5400846B82 /* SpoqaHanSansNeo-Light.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				39C94AAA2AD03E4100846B82 /* SpoqaHanSansNeo-Bold.ttf in Resources */,
+				39C94AAE2AD03E6500846B82 /* SpoqaHanSansNeo-Medium.ttf in Resources */,
+				39C94AB22AD03E7100846B82 /* SpoqaHanSansNeo-Thin.ttf in Resources */,
+				39C94AB02AD03E6B00846B82 /* SpoqaHanSansNeo-Regular.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
