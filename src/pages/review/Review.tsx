@@ -14,6 +14,7 @@ import Header from "../../components/Header";
 import { colors } from "../../constants/colors";
 import Gallery from "../../components/assets/images/gallery.jpg";
 import TabNavigation from "./components/BottomNavigation";
+import { fontStyle } from "../../constants/commonStyle";
 
 const Review = ({ onClose }: any) => {
   const hasAndroidPermission = async () => {
@@ -32,32 +33,38 @@ const Review = ({ onClose }: any) => {
   };
 
   const getPhotos = async () => {
-    ImagePicker.openPicker({
-      multiple: true,
-      includeExif: true,
-    }).then((images: any) => {
+    try {
+      const images = await ImagePicker.openPicker({
+        multiple: true,
+        includeExif: true,
+      });
       console.log(images[0].exif);
-    });
+    } catch (error: any) {
+      if (error.message === "User cancelled image selection") {
+      } else {
+      }
+    }
   };
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (Platform.OS === "android" && !(await hasAndroidPermission())) {
-  //       return;
-  //     }
-  //      getPhotos();
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS === "android" && !(await hasAndroidPermission())) {
+        return;
+      }
+    })();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <Header text="리뷰 쓰기" />
       <View style={styles.mainWrapper}>
-        <Text style={styles.text}>리뷰 작성을 위해 {"\n"}사진을 선택해주세요!</Text>
+        <Text style={fontStyle.Headline5}>
+          리뷰 작성을 위해 {"\n"}사진을 선택해주세요!
+        </Text>
       </View>
       <TouchableOpacity style={styles.customButton} onPress={getPhotos}>
         <Image source={Gallery} />
-        <Text style={styles.customText}>사진 추가하기</Text>
+        <Text style={fontStyle.Headline2}>사진 추가하기</Text>
       </TouchableOpacity>
       <TabNavigation />
     </SafeAreaView>
@@ -77,12 +84,6 @@ const styles = StyleSheet.create({
     gap: 20,
     padding: 20,
   },
-  text: {
-    fontSize: 20,
-    color: colors.N100,
-    lineHeight: 28,
-    fontWeight: "700",
-  },
   customButton: {
     display: "flex",
     justifyContent: "center",
@@ -97,11 +98,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "solid",
     borderColor: colors.N40,
-  },
-  customText: {
-    fontSize: 14,
-    color: colors.N100,
-    lineHeight: 19.6,
-    fontWeight: "700",
   },
 });

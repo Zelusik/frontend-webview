@@ -1,5 +1,6 @@
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Arrow from "../assets/images/arrow.jpg";
+import { fontStyle } from "../../constants/commonStyle";
 
 const Header = ({ text, back }: { text: string; back?: boolean }) => {
   return (
@@ -11,7 +12,7 @@ const Header = ({ text, back }: { text: string; back?: boolean }) => {
           </View>
         )}
         <View style={[styles.textContainer, back && { marginRight: 24 }]}>
-          <Text style={styles.text}>{text}</Text>
+          <Text style={fontStyle.Headline3}>{text}</Text>
         </View>
       </View>
     </SafeAreaView>
@@ -37,13 +38,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-  },
-  text: {
-    color: "#202330",
-    textAlign: "center",
-    fontSize: 16,
-    fontStyle: "normal",
-    fontWeight: "700",
   },
   icon: {},
 });
