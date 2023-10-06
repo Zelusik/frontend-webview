@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  reviewModal: false,
+const initialState: ModalType = {
+  reviewMain: false,
+  selectPlace: false,
+  searchPlace: false,
 };
 
 export const reviewModalSlice = createSlice({
@@ -9,16 +11,14 @@ export const reviewModalSlice = createSlice({
   initialState,
   reducers: {
     initializeReviewModal: () => initialState,
-    toggleReviewModal: (state) => {
-      state.reviewModal = !state.reviewModal;
-    },
-    setReviewModal: (state, action) => {
-      state.reviewModal = action.payload;
+    changeModalVisible: (state, action) => {
+      const { type, value } = action.payload;
+      state[type] = value;
     },
   },
 });
 
-export const { initializeReviewModal, toggleReviewModal, setReviewModal } =
+export const { initializeReviewModal, changeModalVisible } =
   reviewModalSlice.actions;
 
 export default reviewModalSlice.reducer;

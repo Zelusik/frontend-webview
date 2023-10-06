@@ -4,23 +4,34 @@ import WebView from "react-native-webview";
 import { WEBVIEW_URL } from "@env";
 import Review from "../pages/review/Review";
 import { useDispatch, useSelector } from "react-redux";
-import { setReviewModal } from "../reducer/slices/review/reviewModalSlice";
+import { changeModalVisible } from "../reducer/slices/review/reviewModalSlice";
 import { RootState } from "../store";
+import Place from "../pages/select/Place";
 
 const WebViewContent = ({ handleClose }: any) => {
   const dispatch = useDispatch();
   const webviewRef = useRef<any>();
   const [isCanGoBack, setIsCanGoBack] = useState(false);
-  const { reviewModal } = useSelector((state: RootState) => state.reviewModal);
+  const reviewModal = useSelector((state: RootState) => state.reviewModal);
 
   const handleCloseModal = () => {
-    dispatch(setReviewModal(false));
+    dispatch(
+      changeModalVisible({
+        type: "reviewMain",
+        value: false,
+      })
+    );
   };
 
   const handleMessage = (event: any) => {
     const message = event.nativeEvent.data;
     if (message === "mobile") {
-      dispatch(setReviewModal(true));
+      dispatch(
+        changeModalVisible({
+          type: "reviewMain",
+          value: true,
+        })
+      );
     } else {
       setIsCanGoBack(message !== WEBVIEW_URL + "/");
     }
@@ -80,10 +91,18 @@ const WebViewContent = ({ handleClose }: any) => {
 
       <Modal
         transparent={false}
-        visible={reviewModal}
+        visible={reviewModal.reviewMain}
         onRequestClose={handleCloseModal}
       >
-        <Review onClose={handleClose} />
+        <Review />
+      </Modal>
+
+      <Modal
+        transparent={false}
+        visible={reviewModal.selectPlace}
+        // onRequestClose={handleCloseModal}
+      >
+        <Place />
       </Modal>
     </>
   );
