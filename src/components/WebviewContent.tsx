@@ -1,18 +1,26 @@
 import React, { useRef, useState, useEffect } from "react";
-import { BackHandler } from "react-native";
+import { BackHandler, Modal } from "react-native";
 import WebView from "react-native-webview";
 import { WEBVIEW_URL } from "@env";
 import Review from "../pages/review/Review";
+import { useDispatch, useSelector } from "react-redux";
+import { setReviewModal } from "../reducer/slices/review/reviewModalSlice";
+import { RootState } from "../store";
 
 const WebViewContent = ({ handleClose }: any) => {
+  const dispatch = useDispatch();
   const webviewRef = useRef<any>();
   const [isCanGoBack, setIsCanGoBack] = useState(false);
-  const [showWebView, setShowWebView] = useState(true);
+  const { reviewModal } = useSelector((state: RootState) => state.reviewModal);
+
+  const handleCloseModal = () => {
+    dispatch(setReviewModal(false));
+  };
 
   const handleMessage = (event: any) => {
     const message = event.nativeEvent.data;
     if (message === "mobile") {
-      setShowWebView(false);
+      dispatch(setReviewModal(true));
     } else {
       setIsCanGoBack(message !== WEBVIEW_URL + "/");
     }
@@ -38,20 +46,19 @@ const WebViewContent = ({ handleClose }: any) => {
 
   return (
     <>
-      {showWebView ? (
-        <WebView
-          ref={webviewRef}
-          source={{ uri: WEBVIEW_URL }}
-          style={{
-            backgroundColor: "#ffffff",
-          }}
-          pullToRefreshEnabled={true}
-          startInLoadingState={true}
-          allowsBackForwardNavigationGestures={true}
-          mixedContentMode={"compatibility"}
-          originWhitelist={["https://*", "http://*", "*"]}
-          overScrollMode={"never"}
-          injectedJavaScript={`
+      <WebView
+        ref={webviewRef}
+        source={{ uri: WEBVIEW_URL }}
+        style={{
+          backgroundColor: "#ffffff",
+        }}
+        pullToRefreshEnabled={true}
+        startInLoadingState={true}
+        allowsBackForwardNavigationGestures={true}
+        mixedContentMode={"compatibility"}
+        originWhitelist={["https://*", "http://*", "*"]}
+        overScrollMode={"never"}
+        injectedJavaScript={`
         (function() {
           function wrap(fn) {
             return function wrapper() {
@@ -68,13 +75,16 @@ const WebViewContent = ({ handleClose }: any) => {
         })();
         true;
         `}
-          // webviewRef.postMessage : RN2Webview
-          // Webview2RN
-          onMessage={handleMessage}
-        />
-      ) : (
-        <Review />
-      )}
+        onMessage={handleMessage}
+      />
+
+      <Modal
+        transparent={false}
+        visible={reviewModal}
+        onRequestClose={handleCloseModal}
+      >
+        <Review onClose={handleClose} />
+      </Modal>
     </>
   );
 };

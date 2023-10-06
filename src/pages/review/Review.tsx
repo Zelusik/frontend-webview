@@ -13,8 +13,9 @@ import ImagePicker from "react-native-image-crop-picker";
 import Header from "../../components/Header";
 import { colors } from "../../constants/colors";
 import Gallery from "../../components/assets/images/gallery.jpg";
+import TabNavigation from "./components/BottomNavigation";
 
-const Review = () => {
+const Review = ({ onClose }: any) => {
   const hasAndroidPermission = async () => {
     const permission =
       Number(Platform.Version) >= 33
@@ -58,6 +59,7 @@ const Review = () => {
         <Image source={Gallery} />
         <Text style={styles.customText}>사진 추가하기</Text>
       </TouchableOpacity>
+      <TabNavigation />
     </SafeAreaView>
   );
 };
@@ -67,6 +69,7 @@ export default Review;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
   },
   mainWrapper: {
     display: "flex",
