@@ -12,16 +12,20 @@ import {
 import ImagePicker from "react-native-image-crop-picker";
 import Header from "../../components/Header";
 import { colors } from "../../constants/colors";
-import Gallery from "../../components/assets/images/gallery.jpg";
 import TabNavigation from "./components/BottomNavigation";
 import { fontStyle } from "../../constants/commonStyle";
 import { useDispatch } from "react-redux";
 import { changeImageInfo } from "../../reducer/slices/image/imageSlice";
 import { ExifData } from "../../types/image";
 import { changeModalVisible } from "../../reducer/slices/review/reviewModalSlice";
+import useToast from "../../hooks/useToast";
+import Toast from "../../components/Toast";
+import Gallery from "../../components/assets/icons/Gallery";
 
 const Review = () => {
   const dispatch = useDispatch();
+  const { isShowToast, openToast, closeToast } = useToast();
+
   const handleClickNext = () => {
     dispatch(
       changeModalVisible({
@@ -53,24 +57,30 @@ const Review = () => {
 
   const getPhotos = async () => {
     try {
-      const images = await ImagePicker.openPicker({
+      await ImagePicker.openPicker({
         mediaType: "photo",
         multiple: true,
         includeExif: true,
         includeBase64: true,
+        maxFiles: 9,
+      }).then((images) => {
+        if (images.length > 9) {
+          openToast();
+        } else {
+          const imageInfoArray = images.map((image) => {
+            const latitude = (image.exif as ExifData)?.GPSLatitude || "";
+            const longitude = (image.exif as ExifData)?.GPSLongitude || "";
+            return {
+              image: "data:image/jpeg;base64," + image.data,
+              imageUrl: "data:image/jpeg;base64," + image.data,
+              lat: latitude,
+              lng: longitude,
+            };
+          });
+          dispatch(changeImageInfo(imageInfoArray));
+          handleClickNext();
+        }
       });
-      const imageInfoArray = images.map((image) => {
-        const latitude = (image.exif as ExifData)?.GPSLatitude || "";
-        const longitude = (image.exif as ExifData)?.GPSLongitude || "";
-        return {
-          image: "data:image/jpeg;base64," + image.data,
-          imageUrl: "data:image/jpeg;base64," + image.data,
-          lat: latitude,
-          lng: longitude,
-        };
-      });
-      dispatch(changeImageInfo(imageInfoArray));
-      handleClickNext();
     } catch (error: any) {
       if (error.message === "User cancelled image selection") {
       } else {
@@ -95,10 +105,13 @@ const Review = () => {
         </Text>
       </View>
       <TouchableOpacity style={styles.customButton} onPress={getPhotos}>
-        <Image source={Gallery} />
+        <Gallery />
         <Text style={fontStyle.Headline2}>사진 추가하기</Text>
       </TouchableOpacity>
       <TabNavigation />
+      {isShowToast && (
+        <Toast message={"최대 9장의 사진 선택이 가능합니다"} close={closeToast} />
+      )}
     </SafeAreaView>
   );
 };
