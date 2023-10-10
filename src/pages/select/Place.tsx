@@ -16,6 +16,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { changeModalVisible } from "../../reducer/slices/review/reviewModalSlice";
 import { ScrollView } from "react-native-gesture-handler";
+import Spacing from "../../components/Spacing";
+import Chevron from "../../components/assets/icons/Chevron";
+import BottomButton from "../../components/BottomButton";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -69,6 +72,18 @@ const Place = () => {
           >{`${currIdx}/${image.length}`}</Text>
         </View>
       </View>
+      <Spacing size={10} />
+      <View style={styles.placeContainer}>
+        <Text style={fontStyle.Headline5}>어느 음식점인가요?</Text>
+        <View style={styles.placeInputWrapper}>
+          <Text style={[fontStyle.Headline3, styles.placeText]}>카린지</Text>
+          <Chevron />
+        </View>
+      </View>
+      <View style={styles.button}>
+        <BottomButton text="다음으로" onPress={() => {}} />
+        <Spacing size={40} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -77,8 +92,9 @@ export default Place;
 
 const styles = StyleSheet.create({
   container: {
+    position: "relative",
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.N0,
   },
   mainWrapper: {
     paddingHorizontal: 10,
@@ -102,5 +118,37 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 35,
     bottom: 35,
+  },
+  placeContainer: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 20,
+    paddingHorizontal: 20,
+  },
+  placeInputWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+
+    height: 54,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+
+    borderRadius: 12,
+    backgroundColor: colors.N0,
+    borderColor: colors.N40,
+    borderWidth: 1,
+    borderStyle: "solid",
+  },
+  placeText: {
+    width: 100,
+  },
+  button: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 20,
   },
 });
