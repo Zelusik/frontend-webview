@@ -23,11 +23,18 @@ export const fontStyle = StyleSheet.create({
     fontWeight: "700",
     lineHeight: 19.6,
   },
-  paragraph2: {
+  Paragraph2: {
     fontSize: 12,
     color: colors.N100,
     fontFamily: "SpoqaHanSansNeo",
     fontWeight: "500",
     lineHeight: 16.8,
+  },
+  Paragraph5: {
+    fontSize: 14,
+    color: colors.N100,
+    fontFamily: "SpoqaHanSansNeo",
+    fontWeight: "500",
+    lineHeight: 19.6,
   },
 });

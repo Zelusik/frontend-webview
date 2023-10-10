@@ -6,8 +6,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Arrow from "../assets/images/arrow.jpg";
 import { fontStyle } from "../../constants/commonStyle";
+import Arrow from "../assets/icons/Arrow";
 
 const Header = ({
   text,
@@ -23,7 +23,7 @@ const Header = ({
       <View style={styles.container}>
         {back && (
           <TouchableOpacity style={styles.iconContainer} onPress={onPress}>
-            <Image source={Arrow} style={styles.icon} />
+            <Arrow />
           </TouchableOpacity>
         )}
         <View style={[styles.textContainer, back && { marginRight: 24 }]}>

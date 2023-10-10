@@ -65,7 +65,7 @@ const Place = () => {
         </ScrollView>
         <View style={styles.imgCntWrapper}>
           <Text
-            style={[fontStyle.paragraph2, { color: colors.N0 }]}
+            style={[fontStyle.Paragraph2, { color: colors.N0 }]}
           >{`${currIdx}/${image.length}`}</Text>
         </View>
       </View>
