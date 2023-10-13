@@ -96,7 +96,7 @@ const SearchPlace = () => {
         renderItem={placeInfoBtn}
         keyExtractor={(item, index) => index.toString()}
         onEndReached={loadMoreItems}
-        onEndReachedThreshold={0.1}
+        onEndReachedThreshold={1}
         style={styles.mainWrapper}
       />
     </SafeAreaView>
