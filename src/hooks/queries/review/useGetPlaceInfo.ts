@@ -80,7 +80,6 @@ const useGetPlaceInfo = (image: any) => {
   const getKakaoData = async (lng: any, lat: any) => {
     if (!lng || !lat) {
       const { lat: currLat, lng: currLng }: any = await requestLocationPermission();
-      console.log(currLat, currLng);
       const res = await kakaoSearchKeyword({
         x: currLng,
         y: currLat,

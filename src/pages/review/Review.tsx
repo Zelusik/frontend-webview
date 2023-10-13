@@ -69,9 +69,14 @@ const Review = () => {
           openToast();
         } else {
           const imageInfoArray = images.map((image) => {
-            const latitude = (image.exif as ExifData)?.["{GPS}"]?.["Latitude"] || "";
+            const latitude =
+              Platform.OS === "ios"
+                ? (image.exif as ExifData)?.["{GPS}"]?.["Latitude"] || ""
+                : (image.exif as ExifData)?.["Latitude"] || "";
             const longitude =
-              (image.exif as ExifData)?.["{GPS}"]?.["Longitude"] || "";
+              Platform.OS === "ios"
+                ? (image.exif as ExifData)?.["{GPS}"]?.["Longitude"] || ""
+                : (image.exif as ExifData)?.["Longitude"] || "";
 
             return {
               image: "data:image/jpeg;base64," + image.data,
