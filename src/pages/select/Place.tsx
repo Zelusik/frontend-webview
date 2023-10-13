@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   Image,
@@ -19,13 +19,17 @@ import { ScrollView } from "react-native-gesture-handler";
 import Spacing from "../../components/Spacing";
 import Chevron from "../../components/assets/icons/Chevron";
 import BottomButton from "../../components/BottomButton";
+import useGetPlaceInfo from "../../hooks/queries/review/useGetPlaceInfo";
 
 const screenWidth = Dimensions.get("window").width;
 
 const Place = () => {
   const dispatch = useDispatch();
   const image: any = useSelector((state: RootState) => state.image);
+
   const [currIdx, setCurrIdx] = useState<number>(1);
+  const { placeInfo } = useSelector((state: RootState) => state.review);
+  const { isLoading } = useGetPlaceInfo(image);
 
   const handleClickBack = () => {
     dispatch(
@@ -50,40 +54,49 @@ const Place = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header text="음식점 선택" back={true} onPress={handleClickBack} />
-
-      <View style={styles.mainWrapper}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.scrollView}
-          onMomentumScrollEnd={handleScrollEnd}
-          pagingEnabled
-        >
-          <View style={{ flexDirection: "row" }}>
-            {image.map((img: any, index: number) => (
-              <Image key={index} source={{ uri: img.image }} style={styles.image} />
-            ))}
+      {isLoading ? null : (
+        <>
+          <Header text="음식점 선택" back={true} onPress={handleClickBack} />
+          <View style={styles.mainWrapper}>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.scrollView}
+              onMomentumScrollEnd={handleScrollEnd}
+              pagingEnabled
+            >
+              <View style={{ flexDirection: "row" }}>
+                {image.map((img: any, index: number) => (
+                  <Image
+                    key={index}
+                    source={{ uri: img.image }}
+                    style={styles.image}
+                  />
+                ))}
+              </View>
+            </ScrollView>
+            <View style={styles.imgCntWrapper}>
+              <Text
+                style={[fontStyle.Paragraph2, { color: colors.N0 }]}
+              >{`${currIdx}/${image.length}`}</Text>
+            </View>
           </View>
-        </ScrollView>
-        <View style={styles.imgCntWrapper}>
-          <Text
-            style={[fontStyle.Paragraph2, { color: colors.N0 }]}
-          >{`${currIdx}/${image.length}`}</Text>
-        </View>
-      </View>
-      <Spacing size={10} />
-      <View style={styles.placeContainer}>
-        <Text style={fontStyle.Headline5}>어느 음식점인가요?</Text>
-        <View style={styles.placeInputWrapper}>
-          <Text style={[fontStyle.Headline3, styles.placeText]}>카린지</Text>
-          <Chevron />
-        </View>
-      </View>
-      <View style={styles.button}>
-        <BottomButton text="다음으로" onPress={() => {}} />
-        <Spacing size={40} />
-      </View>
+          <Spacing size={10} />
+          <View style={styles.placeContainer}>
+            <Text style={fontStyle.Headline5}>어느 음식점인가요?</Text>
+            <View style={styles.placeInputWrapper}>
+              <Text style={[fontStyle.Headline3, styles.placeText]}>
+                {placeInfo.name}
+              </Text>
+              <Chevron />
+            </View>
+          </View>
+          <View style={styles.button}>
+            <BottomButton text="다음으로" onPress={() => {}} />
+            <Spacing size={40} />
+          </View>
+        </>
+      )}
     </SafeAreaView>
   );
 };

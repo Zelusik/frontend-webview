@@ -40,6 +40,7 @@ const Review = () => {
       })
     );
   };
+
   const hasAndroidPermission = async () => {
     const permission =
       Number(Platform.Version) >= 33
@@ -68,8 +69,10 @@ const Review = () => {
           openToast();
         } else {
           const imageInfoArray = images.map((image) => {
-            const latitude = (image.exif as ExifData)?.GPSLatitude || "";
-            const longitude = (image.exif as ExifData)?.GPSLongitude || "";
+            const latitude = (image.exif as ExifData)?.["{GPS}"]?.["Latitude"] || "";
+            const longitude =
+              (image.exif as ExifData)?.["{GPS}"]?.["Longitude"] || "";
+
             return {
               image: "data:image/jpeg;base64," + image.data,
               imageUrl: "data:image/jpeg;base64," + image.data,
