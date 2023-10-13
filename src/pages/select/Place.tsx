@@ -85,9 +85,7 @@ const Place = () => {
           <View style={styles.placeContainer}>
             <Text style={fontStyle.Headline5}>어느 음식점인가요?</Text>
             <View style={styles.placeInputWrapper}>
-              <Text style={[fontStyle.Headline3, styles.placeText]}>
-                {placeInfo.name}
-              </Text>
+              <Text style={fontStyle.Headline3}>{placeInfo.name}</Text>
               <Chevron />
             </View>
           </View>
@@ -154,9 +152,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderStyle: "solid",
   },
-  placeText: {
-    width: 100,
-  },
+
   button: {
     position: "absolute",
     bottom: 0,
