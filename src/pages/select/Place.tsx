@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import Header from "../../components/Header";
@@ -46,6 +47,20 @@ const Place = () => {
     );
   };
 
+  const handleClickSearch = () => {
+    dispatch(
+      changeModalVisible({
+        type: "selectPlace",
+        value: false,
+      })
+    );
+    dispatch(
+      changeModalVisible({
+        type: "searchPlace",
+        value: true,
+      })
+    );
+  };
   const handleScrollEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
     const contentOffset = e.nativeEvent.contentOffset.x;
     const index = Math.round(contentOffset / screenWidth);
@@ -84,10 +99,13 @@ const Place = () => {
           <Spacing size={10} />
           <View style={styles.placeContainer}>
             <Text style={fontStyle.Headline5}>어느 음식점인가요?</Text>
-            <View style={styles.placeInputWrapper}>
+            <TouchableOpacity
+              style={styles.placeInputWrapper}
+              onPress={handleClickSearch}
+            >
               <Text style={fontStyle.Headline3}>{placeInfo.name}</Text>
               <Chevron />
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.button}>
             <BottomButton text="다음으로" onPress={() => {}} />
