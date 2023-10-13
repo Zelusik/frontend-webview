@@ -15,12 +15,16 @@ import { colors } from "../../constants/colors";
 import TabNavigation from "./components/BottomNavigation";
 import { fontStyle } from "../../constants/commonStyle";
 import { useDispatch } from "react-redux";
-import { changeImageInfo } from "../../reducer/slices/image/imageSlice";
+import {
+  changeImageInfo,
+  initializeImageInfo,
+} from "../../reducer/slices/image/imageSlice";
 import { ExifData } from "../../types/image";
 import { changeModalVisible } from "../../reducer/slices/review/reviewModalSlice";
 import useToast from "../../hooks/useToast";
 import Toast from "../../components/Toast";
 import Gallery from "../../components/assets/icons/Gallery";
+import { initializeReviewInfo } from "../../reducer/slices/review/reviewSlice";
 
 const Review = () => {
   const dispatch = useDispatch();
@@ -102,6 +106,8 @@ const Review = () => {
         return;
       }
     })();
+    dispatch(initializeImageInfo());
+    dispatch(initializeReviewInfo());
   }, []);
 
   return (

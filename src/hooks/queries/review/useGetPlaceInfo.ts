@@ -102,8 +102,8 @@ const useGetPlaceInfo = (image: any) => {
     ["kakaoData", image[0]?.lng, image[0]?.lat],
     async () => await getKakaoData(image[0]?.lng, image[0]?.lat),
     {
-      // retry: false,
-      // enabled: !placeInfo.kakaoPid && image.length > 0,
+      retry: false,
+      enabled: !placeInfo.kakaoPid && image.length > 0,
     }
   );
   return { data, isLoading, error };

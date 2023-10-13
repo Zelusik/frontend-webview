@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeModalVisible } from "../reducer/slices/review/reviewModalSlice";
 import { RootState } from "../store";
 import Place from "../pages/select/Place";
+import SearchPlace from "../pages/search/SearchPlace";
 
 const WebViewContent = ({ handleClose }: any) => {
   const dispatch = useDispatch();
@@ -97,12 +98,12 @@ const WebViewContent = ({ handleClose }: any) => {
         <Review />
       </Modal>
 
-      <Modal
-        transparent={false}
-        visible={reviewModal.selectPlace}
-        // onRequestClose={handleCloseModal}
-      >
+      <Modal transparent={false} visible={reviewModal.selectPlace}>
         <Place />
+      </Modal>
+
+      <Modal transparent={false} visible={reviewModal.searchPlace}>
+        <SearchPlace />
       </Modal>
     </>
   );
