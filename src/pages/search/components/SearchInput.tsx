@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
 
     height: 50,
     paddingHorizontal: 12,
-    paddingVertical: 12,
     marginHorizontal: 20,
 
     backgroundColor: colors.N0,

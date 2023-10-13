@@ -28,7 +28,7 @@ export const fontStyle = StyleSheet.create({
     color: colors.N100,
     fontFamily: "SpoqaHanSansNeo",
     fontWeight: "400",
-    lineHeight: 22.4,
+    lineHeight: 19.6,
   },
   Paragraph5: {
     fontSize: 14,
