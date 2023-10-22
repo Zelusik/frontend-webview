@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import {
-  Image,
   PermissionsAndroid,
   Platform,
   SafeAreaView,
@@ -49,10 +48,9 @@ const Review = () => {
 
   const hasAndroidPermission = async () => {
     const permission =
-      Number(Platform.Version) >= 33
+      Number(Platform.Version) >= 29
         ? PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES
         : PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE;
-
     const hasPermission = await PermissionsAndroid.check(permission);
     if (hasPermission) {
       return true;
