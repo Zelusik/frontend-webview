@@ -25,6 +25,8 @@ import useToast from "../../hooks/useToast";
 import Toast from "../../components/Toast";
 import Gallery from "../../components/assets/icons/Gallery";
 import { initializeReviewInfo } from "../../reducer/slices/review/reviewSlice";
+import ImageResizer from "@bam.tech/react-native-image-resizer";
+import RNFS from "react-native-fs";
 
 const Review = () => {
   const dispatch = useDispatch();
@@ -60,39 +62,60 @@ const Review = () => {
     return status === "granted";
   };
 
+  const resizedImage = async (image: any) => {
+    let imagePath = image.path;
+    if (image.size >= 3145728) {
+      const ratio = Math.ceil(Math.sqrt(image.size / 3145728));
+      const width = image.width / ratio;
+      const height = image.height / ratio;
+      await ImageResizer.createResizedImage(
+        imagePath,
+        width,
+        height,
+        "JPEG",
+        95,
+        0
+      ).then((res) => (imagePath = res.path));
+    }
+    const url = await RNFS.readFile(imagePath, "base64");
+    return url;
+  };
+
   const getPhotos = async () => {
     try {
-      await ImagePicker.openPicker({
+      const images = await ImagePicker.openPicker({
         mediaType: "photo",
         multiple: true,
         includeExif: true,
-        includeBase64: true,
         maxFiles: 9,
-      }).then((images) => {
-        if (images.length > 9) {
-          openToast();
-        } else {
-          const imageInfoArray = images.map((image) => {
-            const latitude =
-              Platform.OS === "ios"
-                ? (image.exif as ExifData)?.["{GPS}"]?.["Latitude"] || ""
-                : (image.exif as ExifData)?.["Latitude"] || "";
-            const longitude =
-              Platform.OS === "ios"
-                ? (image.exif as ExifData)?.["{GPS}"]?.["Longitude"] || ""
-                : (image.exif as ExifData)?.["Longitude"] || "";
-
-            return {
-              image: "data:image/jpeg;base64," + image.data,
-              imageUrl: "data:image/jpeg;base64," + image.data,
-              lat: latitude,
-              lng: longitude,
-            };
-          });
-          dispatch(changeImageInfo(imageInfoArray));
-          handleClickNext();
-        }
       });
+      if (images.length > 9) {
+        openToast();
+        return;
+      }
+      const promises = images.map(async (image) => {
+        const url = await resizedImage(image);
+        const latitude =
+          Platform.OS === "ios"
+            ? (image.exif as ExifData)?.["{GPS}"]?.["Latitude"] || ""
+            : (image.exif as ExifData)?.["Latitude"] || "";
+        const longitude =
+          Platform.OS === "ios"
+            ? (image.exif as ExifData)?.["{GPS}"]?.["Longitude"] || ""
+            : (image.exif as ExifData)?.["Longitude"] || "";
+
+        return {
+          image: `data:${image.mime};base64,${url}`,
+          imageUrl: `data:${image.mime};base64,${url}`,
+          lat: latitude,
+          lng: longitude,
+        };
+      });
+
+      const imageInfoArray = await Promise.all(promises);
+
+      dispatch(changeImageInfo(imageInfoArray));
+      handleClickNext();
     } catch (error: any) {
       if (error.message === "User cancelled image selection") {
       } else {
