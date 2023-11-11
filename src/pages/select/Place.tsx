@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from 'react';
 import {
   Dimensions,
   Image,
@@ -9,22 +9,25 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import Header from "../../components/Header";
-import { colors } from "../../constants/colors";
-import { fontStyle } from "../../constants/commonStyle";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { changeModalVisible } from "../../reducer/slices/review/reviewModalSlice";
-import { ScrollView } from "react-native-gesture-handler";
-import Spacing from "../../components/Spacing";
-import Chevron from "../../components/assets/icons/Chevron";
-import BottomButton from "../../components/BottomButton";
-import useGetPlaceInfo from "../../hooks/queries/review/useGetPlaceInfo";
+} from 'react-native';
+import Header from '../../components/Header';
+import { colors } from '../../constants/colors';
+import { fontStyle } from '../../constants/commonStyle';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { changeModalVisible } from '../../reducer/slices/review/reviewModalSlice';
+import { ScrollView } from 'react-native-gesture-handler';
+import Spacing from '../../components/Spacing';
+import Chevron from '../../components/assets/icons/Chevron';
+import BottomButton from '../../components/BottomButton';
+import useGetPlaceInfo from '../../hooks/queries/review/useGetPlaceInfo';
+import WebView from 'react-native-webview';
+import { WEBVIEW_URL } from '@env';
 
-const screenWidth = Dimensions.get("window").width;
+const screenWidth = Dimensions.get('window').width;
 
 const Place = () => {
+  const webviewRef = useRef<WebView | null>(null);
   const dispatch = useDispatch();
   const image: any = useSelector((state: RootState) => state.image);
 
@@ -35,14 +38,14 @@ const Place = () => {
   const handleClickBack = () => {
     dispatch(
       changeModalVisible({
-        type: "selectPlace",
-        value: false,
+        type: 'reviewMain',
+        value: true,
       })
     );
     dispatch(
       changeModalVisible({
-        type: "reviewMain",
-        value: true,
+        type: 'selectPlace',
+        value: false,
       })
     );
   };
@@ -50,13 +53,13 @@ const Place = () => {
   const handleClickSearch = () => {
     dispatch(
       changeModalVisible({
-        type: "selectPlace",
+        type: 'selectPlace',
         value: false,
       })
     );
     dispatch(
       changeModalVisible({
-        type: "searchPlace",
+        type: 'searchPlace',
         value: true,
       })
     );
@@ -67,6 +70,15 @@ const Place = () => {
     setCurrIdx(index + 1);
   };
 
+  const handleClickNext = () => {
+    if (webviewRef.current) {
+      const dataToSend = {
+        image: JSON.stringify(image),
+        placeInfo: JSON.stringify(placeInfo),
+      };
+      webviewRef.current.postMessage(JSON.stringify(dataToSend));
+    }
+  };
   return (
     <SafeAreaView style={styles.container}>
       {isLoading ? null : (
@@ -80,7 +92,7 @@ const Place = () => {
               onMomentumScrollEnd={handleScrollEnd}
               pagingEnabled
             >
-              <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: 'row' }}>
                 {image.map((img: any, index: number) => (
                   <Image
                     key={index}
@@ -108,11 +120,12 @@ const Place = () => {
             </TouchableOpacity>
           </View>
           <View style={styles.button}>
-            <BottomButton text="다음으로" onPress={() => {}} />
+            <BottomButton text="다음으로" onPress={handleClickNext} />
             <Spacing size={40} />
           </View>
         </>
       )}
+      <WebView ref={webviewRef} source={{ uri: WEBVIEW_URL }} />
     </SafeAreaView>
   );
 };
@@ -121,7 +134,7 @@ export default Place;
 
 const styles = StyleSheet.create({
   container: {
-    position: "relative",
+    position: 'relative',
     flex: 1,
     backgroundColor: colors.N0,
   },
@@ -130,35 +143,35 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   scrollView: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   image: {
     width: screenWidth - 40,
     aspectRatio: 1.14,
     borderRadius: 12,
-    position: "relative",
+    position: 'relative',
     marginHorizontal: 10,
   },
   imgCntWrapper: {
-    backgroundColor: "rgba(32, 35, 48, 0.6)",
+    backgroundColor: 'rgba(32, 35, 48, 0.6)',
     borderRadius: 10,
     paddingHorizontal: 8,
     paddingVertical: 2,
-    position: "absolute",
+    position: 'absolute',
     right: 35,
     bottom: 35,
   },
   placeContainer: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
     gap: 20,
     paddingHorizontal: 20,
   },
   placeInputWrapper: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
 
     paddingHorizontal: 20,
     paddingVertical: 16,
@@ -167,11 +180,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.N0,
     borderColor: colors.N40,
     borderWidth: 1,
-    borderStyle: "solid",
+    borderStyle: 'solid',
   },
 
   button: {
-    position: "absolute",
+    position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
