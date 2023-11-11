@@ -125,7 +125,11 @@ const Place = () => {
           </View>
         </>
       )}
-      <WebView ref={webviewRef} source={{ uri: WEBVIEW_URL }} />
+      <WebView
+        ref={webviewRef}
+        source={{ uri: WEBVIEW_URL }}
+        style={{ display: 'none' }}
+      />
     </SafeAreaView>
   );
 };
