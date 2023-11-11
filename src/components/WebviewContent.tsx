@@ -1,13 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
-import { BackHandler, Modal } from "react-native";
-import WebView from "react-native-webview";
-import { WEBVIEW_URL } from "@env";
-import Review from "../pages/review/Review";
-import { useDispatch, useSelector } from "react-redux";
-import { changeModalVisible } from "../reducer/slices/review/reviewModalSlice";
-import { RootState } from "../store";
-import Place from "../pages/select/Place";
-import SearchPlace from "../pages/search/SearchPlace";
+import React, { useRef, useState, useEffect } from 'react';
+import { BackHandler, Modal } from 'react-native';
+import WebView from 'react-native-webview';
+import { WEBVIEW_URL } from '@env';
+import Review from '../pages/review/Review';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeModalVisible } from '../reducer/slices/review/reviewModalSlice';
+import { RootState } from '../store';
+import Place from '../pages/select/Place';
+import SearchPlace from '../pages/search/SearchPlace';
 
 const WebViewContent = ({ handleClose }: any) => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const WebViewContent = ({ handleClose }: any) => {
   const handleCloseModal = () => {
     dispatch(
       changeModalVisible({
-        type: "reviewMain",
+        type: 'reviewMain',
         value: false,
       })
     );
@@ -26,20 +26,20 @@ const WebViewContent = ({ handleClose }: any) => {
 
   const handleMessage = (event: any) => {
     const message = event.nativeEvent.data;
-    if (message === "mobile") {
+    if (message === 'mobile') {
       dispatch(
         changeModalVisible({
-          type: "reviewMain",
+          type: 'reviewMain',
           value: true,
         })
       );
     } else {
-      setIsCanGoBack(message !== WEBVIEW_URL + "/");
+      setIsCanGoBack(message !== WEBVIEW_URL + '/');
     }
   };
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener("hardwareBackPress", () => {
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       if (isCanGoBack) {
         webviewRef.current.goBack();
       } else {
@@ -62,14 +62,14 @@ const WebViewContent = ({ handleClose }: any) => {
         ref={webviewRef}
         source={{ uri: WEBVIEW_URL }}
         style={{
-          backgroundColor: "#ffffff",
+          backgroundColor: '#ffffff',
         }}
         pullToRefreshEnabled={true}
         startInLoadingState={true}
         allowsBackForwardNavigationGestures={true}
-        mixedContentMode={"compatibility"}
-        originWhitelist={["https://*", "http://*", "*"]}
-        overScrollMode={"never"}
+        mixedContentMode={'compatibility'}
+        originWhitelist={['https://*', 'http://*', '*']}
+        overScrollMode={'never'}
         injectedJavaScript={`
         (function() {
           function wrap(fn) {
@@ -98,11 +98,19 @@ const WebViewContent = ({ handleClose }: any) => {
         <Review />
       </Modal>
 
-      <Modal transparent={false} visible={reviewModal.selectPlace}>
+      <Modal
+        transparent={false}
+        visible={reviewModal.selectPlace}
+        animationType="fade"
+      >
         <Place />
       </Modal>
 
-      <Modal transparent={false} visible={reviewModal.searchPlace}>
+      <Modal
+        transparent={false}
+        visible={reviewModal.searchPlace}
+        animationType="fade"
+      >
         <SearchPlace />
       </Modal>
     </>
