@@ -81,6 +81,13 @@ const Place = () => {
   };
   return (
     <SafeAreaView style={styles.container}>
+      <View>
+        <WebView
+          ref={webviewRef}
+          source={{ uri: WEBVIEW_URL }}
+          style={{ width: 0, height: 0 }}
+        />
+      </View>
       {isLoading ? null : (
         <>
           <Header text="음식점 선택" back={true} onPress={handleClickBack} />
@@ -125,11 +132,6 @@ const Place = () => {
           </View>
         </>
       )}
-      <WebView
-        ref={webviewRef}
-        source={{ uri: WEBVIEW_URL }}
-        style={{ display: 'none' }}
-      />
     </SafeAreaView>
   );
 };
