@@ -73,8 +73,8 @@ const Place = () => {
   const handleClickNext = () => {
     if (webviewRef.current) {
       const dataToSend = {
-        image: JSON.stringify(image),
-        placeInfo: JSON.stringify(placeInfo),
+        image: image,
+        placeInfo: placeInfo,
       };
       webviewRef.current.postMessage(JSON.stringify(dataToSend));
     }
@@ -86,6 +86,7 @@ const Place = () => {
           ref={webviewRef}
           source={{ uri: WEBVIEW_URL }}
           style={{ width: 0, height: 0 }}
+          javaScriptEnabled={true}
         />
       </View>
       {isLoading ? null : (
