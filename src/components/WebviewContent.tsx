@@ -68,7 +68,7 @@ const WebViewContent = ({ handleClose }: any) => {
         startInLoadingState={true}
         allowsBackForwardNavigationGestures={true}
         mixedContentMode={'compatibility'}
-        originWhitelist={['https://*', 'http://*', '*']}
+        originWhitelist={['https://*', 'http://*']}
         overScrollMode={'never'}
         injectedJavaScript={`
         (function() {
