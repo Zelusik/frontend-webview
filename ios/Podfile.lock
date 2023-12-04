@@ -375,6 +375,8 @@ PODS:
   - React-jsinspector (0.72.3)
   - React-logger (0.72.3):
     - glog
+  - react-native-exif (0.5.0):
+    - React
   - react-native-geolocation-service (5.3.1):
     - React
   - react-native-image-resizer (3.0.7):
@@ -597,6 +599,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
+  - react-native-exif (from `../node_modules/react-native-exif`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - "react-native-image-resizer (from `../node_modules/@bam.tech/react-native-image-resizer`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -690,6 +693,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   React-logger:
     :path: "../node_modules/react-native/ReactCommon/logger"
+  react-native-exif:
+    :path: "../node_modules/react-native-exif"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-image-resizer:
@@ -785,6 +790,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 59d1eb03af7d30b7d66589c410f13151271e8006
   React-jsinspector: b511447170f561157547bc0bef3f169663860be7
   React-logger: c5b527272d5f22eaa09bb3c3a690fee8f237ae95
+  react-native-exif: c43e7c18af8bfa133c79145671a0f036e413468e
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-image-resizer: 681f7607418b97c084ba2d0999b153b103040d8a
   react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
