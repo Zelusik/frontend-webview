@@ -1,24 +1,21 @@
-import React, { useRef, useState, useEffect } from "react";
-import { BackHandler } from "react-native";
-import WebView from "react-native-webview";
-import { WEBVIEW_URL } from "@env";
+import React, { useRef, useState, useEffect } from 'react';
+import { BackHandler } from 'react-native';
+import WebView from 'react-native-webview';
+import { WEBVIEW_URL } from '@env';
 
 const WebViewContent = ({ handleClose }: any) => {
   const webviewRef = useRef<any>();
   const [isCanGoBack, setIsCanGoBack] = useState(false);
 
   useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => {
-        if (isCanGoBack) {
-          webviewRef.current.goBack();
-        } else {
-          handleClose();
-        }
-        return true;
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+      if (isCanGoBack) {
+        webviewRef.current.goBack();
+      } else {
+        handleClose();
       }
-    );
+      return true;
+    });
     return () => backHandler.remove();
   }, [isCanGoBack, handleClose]);
 
@@ -33,14 +30,14 @@ const WebViewContent = ({ handleClose }: any) => {
       ref={webviewRef}
       source={{ uri: WEBVIEW_URL }}
       style={{
-        backgroundColor: "#ffffff",
+        backgroundColor: '#ffffff',
       }}
       pullToRefreshEnabled={true}
       startInLoadingState={true}
       allowsBackForwardNavigationGestures={true}
-      mixedContentMode={"compatibility"}
-      originWhitelist={["https://*", "http://*"]}
-      overScrollMode={"never"}
+      mixedContentMode={'compatibility'}
+      originWhitelist={['https://*', 'http://*']}
+      overScrollMode={'never'}
       injectedJavaScript={`
         (function() {
           function wrap(fn) {
@@ -62,8 +59,8 @@ const WebViewContent = ({ handleClose }: any) => {
       // Webview2RN
       onMessage={(event) => {
         const url = event.nativeEvent.data;
-        console.log(url);
-        setIsCanGoBack(url !== WEBVIEW_URL + "/");
+        //        console.log(url);
+        setIsCanGoBack(url !== WEBVIEW_URL + '/');
       }}
     />
   );
